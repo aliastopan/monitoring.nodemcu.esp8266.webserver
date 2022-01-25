@@ -1,9 +1,16 @@
 #include <Arduino.h>
+#include <rest.api.h>
 
-void setup() {
-  // put your setup code here, to run once:
+void setup()
+{
+	Serial.begin(115200);
+	while (!Serial);
+
+	API::Setup();
+	API::Start();
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
 }
