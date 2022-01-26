@@ -20,5 +20,22 @@
         <span>HUMIDIDY: </span>
         <span id="humidity" class="px-1">%HUMIDITY%</span>
     </div>
+
+    <script>
+
+        let interval = 10;
+
+        setInterval(() => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200){
+                    document.getElementById("humidity").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "/", true);
+            xhttp.send()
+        }, interval);
+
+    </script>
 </body>
 </html>
