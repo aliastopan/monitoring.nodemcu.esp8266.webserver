@@ -1,10 +1,12 @@
 #ifndef RESTAPI
 #define RESTAPI
 
+#include <ArduinoJson.h>
 #include <server.config.h>
 #include <webserver.h>
 
-char* _data;
+DynamicJsonDocument doc(256);
+char json_string[256];
 
 class API
 {
@@ -23,17 +25,22 @@ class API
 
         static void Start()
         {
+
             server.on("/get", HTTP_GET, [](AsyncWebServerRequest *request){
-                request->send(200, "text/json", _data);
+                request->send(200, "application/json", json_string);
             });
 
             server.onNotFound(NotFound);
             server.begin();
         }
 
-        static void DTO(char* json)
+        static void Loop()
         {
-            _data = json;
+            doc["temperature"] = 34;
+            doc["humidity"][0] = percentageValue;
+            doc["humidity"][1] = percentageValue-10;
+
+            serializeJson(doc, json_string);
         }
 
 };

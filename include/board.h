@@ -7,7 +7,7 @@
 int rawValue = 0;
 int dryValue = 1023;
 int wetValue = 302;
-int percentageValue = 50;
+int percentageValue = 0;
 int percentageDryValue = 0;
 int percentageWetValue = 100;
 

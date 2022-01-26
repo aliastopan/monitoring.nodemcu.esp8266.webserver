@@ -11,11 +11,9 @@ void setup()
 
 }
 
-char* _json = (char*)"{\"data\": \"33\"}";
 
 void loop()
 {
 	Board::Loop();
-
-	API::DTO(_json);
+	API::Loop();
 }
