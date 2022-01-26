@@ -5,12 +5,22 @@
 #include <server.config.h>
 #include <webserver.h>
 
+int humidity = 0;
+
 class API
 {
     private:
         static void NotFound(AsyncWebServerRequest *request)
         {
             request->send(404, "text/plain", "not found");
+        }
+
+        static String Processor(const String& var)
+        {
+            if(var == "HUMIDITY"){
+                return String(humidity);
+            }
+            return String();
         }
 
     public:
@@ -29,7 +39,7 @@ class API
             }
 
             server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-                request->send(LittleFS, "/index.html", String(), false);
+                request->send(LittleFS, "/index.html", String(), false, Processor);
             });
 
             server.on("/styles.css", HTTP_GET, [](AsyncWebServerRequest *request){
@@ -39,6 +49,13 @@ class API
             server.onNotFound(NotFound);
             server.begin();
         }
+
+        static void DTO(int humidityValue)
+        {
+            humidity = humidityValue;
+        }
+
+
 
 
 };
