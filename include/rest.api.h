@@ -4,7 +4,7 @@
 #include <server.config.h>
 #include <webserver.h>
 
-int humidity = 0;
+char* _data;
 
 class API
 {
@@ -24,16 +24,16 @@ class API
         static void Start()
         {
             server.on("/get", HTTP_GET, [](AsyncWebServerRequest *request){
-                request->send(200, "text/json", "{\"data\": \"42\"}");
+                request->send(200, "text/json", _data);
             });
 
             server.onNotFound(NotFound);
             server.begin();
         }
 
-        static void DTO(int humidityValue)
+        static void DTO(char* json)
         {
-            humidity = humidityValue;
+            _data = json;
         }
 
 };
