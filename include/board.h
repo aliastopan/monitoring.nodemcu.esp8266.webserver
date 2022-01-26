@@ -28,8 +28,15 @@ class Board
     {
         rawValue = analogRead(SOILMOISTURE_PIN);
         percentageValue = map(rawValue, dryValue, wetValue, percentageDryValue, percentageWetValue);
+
         delay(1000);
-  	    Serial.println("Bleh");
+        Serial.print("Raw: ");
+	    Serial.print(rawValue);
+	    Serial.print(" | ");
+
+	    Serial.print("Friendly: ");
+  	    Serial.print(percentageValue);
+  	    Serial.println("%");
 
     }
 
