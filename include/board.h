@@ -11,7 +11,6 @@ int percentageValue = 50;
 int percentageDryValue = 0;
 int percentageWetValue = 100;
 
-
 class Board
 {
     public:
@@ -34,7 +33,7 @@ class Board
 	    Serial.print(rawValue);
 	    Serial.print(" | ");
 
-	    Serial.print("Friendly: ");
+	    Serial.print("Percentage: ");
   	    Serial.print(percentageValue);
   	    Serial.println("%");
 
