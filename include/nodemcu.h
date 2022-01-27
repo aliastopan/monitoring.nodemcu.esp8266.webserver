@@ -2,6 +2,7 @@
 #define NODEMCU
 
 
+#include<MUX74HC4067.h>
 
 
 #define S0 D0
