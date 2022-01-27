@@ -11,12 +11,9 @@
 #define SENSOR_2_PIN D3
 
 
-
-
 int rawValue = 0;
-int dryValue = 1023;
-// int wetValue = 0;
-int wetValue = 302;
+int dryValue = 200;
+int wetValue = 0;
 int percentageValue = 0;
 int percentageDryValue = 0;
 int percentageWetValue = 100;
@@ -33,23 +30,22 @@ class Board
     {
         digitalWrite(SENSOR_1_PIN, HIGH);
         digitalWrite(SENSOR_2_PIN, LOW);
-        return analogRead(0);
+        return analogRead(ANALOG_PIN);
     }
 
     static int ReadAnalog2()
     {
         digitalWrite(SENSOR_1_PIN, LOW);
         digitalWrite(SENSOR_2_PIN, HIGH);
-        return analogRead(0);
+        return analogRead(ANALOG_PIN);
     }
 
     public:
     static void Setup()
     {
         Serial.begin(115200);
-        while (!Serial);
+        // while (!Serial);
 
-        // pinMode(RELAY_PIN, OUTPUT);
 	    pinMode(ANALOG_PIN, INPUT);
 
         pinMode(ABSOLUTE_LOW, OUTPUT);
@@ -66,15 +62,24 @@ class Board
         digitalWrite(ABSOLUTE_HIGH, HIGH);
 
         rawValue1 = ReadAnalog1();
+        percentageValue1 = map(rawValue1, dryValue, wetValue, percentageDryValue, percentageWetValue);
         delay(1000);
+
         rawValue2 = ReadAnalog2();
+        percentageValue2 = map(rawValue2, dryValue, wetValue, percentageDryValue, percentageWetValue);
         delay(1000);
 
         Serial.print("sensor 1 = ");
         Serial.print(rawValue1);
+        Serial.print(" | ");
+        Serial.print(percentageValue1);
+        Serial.print("%");
         Serial.print(" / sensor 2 = ");
-        Serial.println(rawValue2);
-
+        Serial.print(rawValue2);
+        Serial.print(" | ");
+        Serial.print(percentageValue2);
+        Serial.print("%");
+        Serial.print("\n");
 
     }
 
